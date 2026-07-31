@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress vs OpenCart 比較表</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --bg-color: #f8f9fa;
+            --border-color: #e9ecef;
+            --wp-color: #21759b;
+            --oc-color: #23a1d1;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .table-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--primary-color);
+            color: #fff;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        th:nth-child(2) { background-color: var(--wp-color); }
+        th:nth-child(3) { background-color: var(--oc-color); }
+        tr:hover {
+            background-color: rgba(0,0,0,0.01);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .highlight-wp {
+            color: var(--wp-color);
+            font-weight: bold;
+        }
+        .highlight-oc {
+            color: var(--oc-color);
+            font-weight: bold;
+        }
+        .recommend {
+            background-color: #fdfffe;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            tr {
+                border: 1px solid var(--border-color);
+                margin-bottom: 15px;
+                border-radius: 6px;
+                background: #fff;
+            }
+            td {
+                border: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+                padding-left: 45%;
+                text-align: left;
+            }
+            td:last-child {
+                border-bottom: none;
+            }
+            td:before {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                width: 35%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+                color: var(--primary-color);
+            }
+            td:nth-of-type(1):before { content: "比較項目"; }
+            td:nth-of-type(2):before { content: "WordPress"; }
+            td:nth-of-type(3):before { content: "OpenCart"; }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>WordPress vs OpenCart 系統挑選比較表</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>比較項目</th>
+                    <th>WordPress (+ WooCommerce)</th>
+                    <th>OpenCart</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>核心定位</strong></td>
+                    <td>內容管理系統 (CMS) + 電商外掛</td>
+                    <td>純原生電商購物車系統</td>
+                </tr>
+                <tr>
+                    <td><strong>部落格/最新消息</strong></td>
+                    <td><span class="highlight-wp">🏆 極強</span>（地表最強原生文章系統）</td>
+                    <td>❌ 陽春（僅能發公告，需付費擴充）</td>
+                </tr>
+                <tr>
+                    <td><strong>適合商品數量</strong></td>
+                    <td>適合中小規模（萬件以內較佳）</td>
+                    <td>適合中大規模（萬件以上效能較佳）</td>
+                </tr>
+                <tr>
+                    <td><strong>SEO 搜尋排名</strong></td>
+                    <td><span class="highlight-wp">🏆 極佳</span>（有大量強大 SEO 外掛支援）</td>
+                    <td>中等（需依賴模組或手動優化）</td>
+                </tr>
+                <tr>
+                    <td><strong>擴充資源與社群</strong></td>
+                    <td><span class="highlight-wp">🏆 極多</span>（外掛與設計師資源世界第一）</td>
+                    <td>較少（多依賴官方市集，資源集中）</td>
+                </tr>
+                <tr>
+                    <td><strong>系統效能/速度</strong></td>
+                    <td>外掛裝多易變慢，需額外優化</td>
+                    <td>較輕量，大數據下運作相對穩定</td>
+                </tr>
+                <tr>
+                    <td><strong>後台管理介面</strong></td>
+                    <td>需同時管理文章與電商，稍嫌複雜</td>
+                    <td>專為電商設計，訂單與商品管理直觀</td>
+                </tr>
+                <tr class="recommend">
+                    <td><strong>結論建議</strong></td>
+                    <td>適合<strong>需要經營內容、SEO、發文章</strong>的店家</td>
+                    <td>適合<strong>純賣東西、品項極多、不寫文章</strong>的店家</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+
