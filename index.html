@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- ==================================================================== -->
+    <!-- BMW INPA MEVD176K 德文選單全功能速查對照 Map                            -->
+    <!-- Generated from INPA_MEVD176K_德文選單_Map.xlsx                          -->
+    <!-- Features: Large Font Mode, Live Search, Sheet Filter, Quick Copy, Print  -->
+    <!-- ==================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW INPA MEVD176K 德文選單對照與診斷指南 (Quick Reference Map)</title>
+    <meta name="description" content="BMW F-Series / N55 / N20 / MEVD176K 引擎控制電腦 INPA 德文選單結構、元件作動測試、Adaptation 清除安全指南與量測參數對照表">
+    <meta name="keywords" content="BMW, INPA, MEVD176K, N55, N20, 31E9, E-Lüfter, Adaptation, EDIABAS">
+    
+    <!-- Google Fonts for crisp typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================================================================== */
+        /* CSS Root Variables & Theming                                       */
+        /* ================================================================== */
+        :root {
+            --font-main: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'Fira Code', 'SFMono-Regular', Consolas, Monaco, monospace;
+            
+            /* Enhanced font sizing for readability */
+            --font-base-size: 17px;
+            --font-scale: 1;
+            
+            /* Theme Palette */
+            --bg-body: #0b0f19;
+            --bg-card: #151d2f;
+            --bg-card-alt: #1c263d;
+            --bg-header: #0f172a;
+            --border-color: #2a3754;
+            --border-hover: #3b82f6;
+            
+            /* Accent Colors (BMW M inspired) */
+            --bmw-blue: #0066b1;
+            --bmw-sky: #3b82f6;
+            --bmw-indigo: #6366f1;
+            --bmw-red: #ef4444;
+            --bmw-amber: #f59e0b;
+            --bmw-green: #10b981;
+            
+            /* Text Colors */
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-dark: #0f172a;
+            
+            /* Component Stylings */
+            --badge-bg: #1e293b;
+            --badge-border: #334155;
+            --key-bg: #1e293b;
+            --key-text: #38bdf8;
+            --key-border: #38bdf866;
+            --key-shadow: 0 2px 0 #0284c7;
+            
+            --table-hover: #1e293b80;
+            --warning-bg: rgba(245, 158, 11, 0.12);
+            --warning-border: #f59e0b;
+            --danger-bg: rgba(239, 68, 68, 0.12);
+            --danger-border: #ef4444;
+            --info-bg: rgba(59, 130, 246, 0.12);
+            --info-border: #3b82f6;
+        }
+
+        /* Light Theme Alternative via data-theme="light" */
+        [data-theme="light"] {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-alt: #f1f5f9;
+            --bg-header: #ffffff;
+            --border-color: #e2e8f0;
+            --border-hover: #2563eb;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            
+            --badge-bg: #e2e8f0;
+            --badge-border: #cbd5e1;
+            --key-bg: #f8fafc;
+            --key-text: #0284c7;
+            --key-border: #bae6fd;
+            --key-shadow: 0 2px 0 #0284c7;
+            
+            --table-hover: #f1f5f9;
+            --warning-bg: #fef3c7;
+            --warning-border: #d97706;
+            --danger-bg: #fee2e2;
+            --danger-border: #dc2626;
+            --info-bg: #e0f2fe;
+            --info-border: #0284c7;
+        }
+
+        /* ================================================================== */
+        /* Base Reset & Global Styles                                         */
+        /* ================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: calc(var(--font-base-size) * var(--font-scale));
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.65;
+            transition: background-color 0.2s, color 0.2s;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 24px 20px;
+        }
+
+        /* ================================================================== */
+        /* Header & Control Bar                                               */
+        /* ================================================================== */
+        header.app-header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-logo {
+            background: linear-gradient(135deg, #0066b1, #3b82f6);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.3rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0, 102, 177, 0.4);
+        }
+
+        .brand-title h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .brand-title p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* Control Buttons & Sizers */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card-alt);
+            color: var(--text-primary);
+            transition: all 0.15s ease;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .btn:hover {
+            border-color: var(--bmw-sky);
+            transform: translateY(-1px);
+        }
+
+        .btn-group {
+            display: inline-flex;
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .btn-group .btn-icon {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: background 0.15s;
+        }
+
+        .btn-group .btn-icon:hover {
+            background: var(--border-color);
+            color: var(--bmw-sky);
+        }
+
+        /* ================================================================== */
+        /* Search & Filter Toolbar                                            */
+        /* ================================================================== */
+        .toolbar {
+            margin: 24px 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--bmw-sky);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            padding: 4px;
+        }
+
+        .search-clear:hover {
+            color: var(--text-primary);
+        }
+
+        /* Category Nav Tabs */
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--bmw-sky);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0066b1, #2563eb);
+            color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+        }
+
+        .tab-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        .tab-btn.active .tab-badge {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        /* ================================================================== */
+        /* Keycap & Badge Styles                                              */
+        /* ================================================================== */
+        .keycap {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--key-text);
+            background: var(--key-bg);
+            border: 1px solid var(--key-border);
+            padding: 3px 10px;
+            border-radius: 6px;
+            box-shadow: var(--key-shadow);
+            white-space: nowrap;
+        }
+
+        .keycap-shift {
+            color: #ec4899;
+            border-color: rgba(236, 72, 153, 0.4);
+            box-shadow: 0 2px 0 #be185d;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            color: var(--text-secondary);
+        }
+
+        /* ================================================================== */
+        /* Section Cards & Tables                                             */
+        /* ================================================================== */
+        .sheet-section {
+            margin-bottom: 36px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .sheet-section:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+        }
+
+        .sheet-header {
+            padding: 20px 24px;
+            background: var(--bg-card-alt);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .sheet-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sheet-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .sheet-desc {
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            background: rgba(0,0,0,0.03);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Warning Banner within Adaptation Sheets */
+        .warning-callout {
+            margin: 16px 24px;
+            padding: 16px 20px;
+            border-radius: 10px;
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            color: var(--text-primary);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .warning-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .warning-content strong {
+            color: var(--bmw-amber);
+            font-size: 1.05rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .warning-content ul {
+            margin: 6px 0 0 20px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        /* Modern Table Design */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        table.data-table th,
+        table.data-table td {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.02rem;
+            vertical-align: middle;
+        }
+
+        table.data-table th {
+            background: var(--bg-card-alt);
+            color: var(--text-secondary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        table.data-table tbody tr {
+            transition: background-color 0.15s;
+        }
+
+        table.data-table tbody tr:hover {
+            background-color: var(--table-hover);
+        }
+
+        table.data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .col-key {
+            width: 15%;
+            min-width: 120px;
+        }
+
+        .col-german {
+            width: 38%;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            color: #38bdf8;
+            word-break: break-word;
+        }
+
+        [data-theme="light"] .col-german {
+            color: #0369a1;
+        }
+
+        .col-chinese {
+            width: 47%;
+            color: var(--text-primary);
+            word-break: break-word;
+        }
+
+        /* Copy Button for German words */
+        .copy-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin-left: 8px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: color 0.15s, background 0.15s;
+        }
+
+        .copy-btn:hover {
+            color: var(--bmw-sky);
+            background: var(--bg-card-alt);
+        }
+
+        /* Highlight Search Match */
+        .highlight {
+            background: rgba(245, 158, 11, 0.35);
+            color: #fbbf24;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        [data-theme="light"] .highlight {
+            background: #fef08a;
+            color: #854d0e;
+        }
+
+        /* ================================================================== */
+        /* Quick Reference Diagnostic Cards (Sheet 06)                        */
+        /* ================================================================== */
+        .diag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 16px;
+            padding: 20px;
+        }
+
+        .diag-card {
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        .diag-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--bmw-sky);
+        }
+
+        .diag-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .diag-card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #38bdf8;
+            font-family: var(--font-mono);
+        }
+
+        [data-theme="light"] .diag-card-title {
+            color: #0284c7;
+        }
+
+        .diag-card-body {
+            font-size: 1rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* ================================================================== */
+        /* German Glossary Grid (Sheet 07)                                    */
+        /* ================================================================== */
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+            padding: 20px;
+        }
+
+        .glossary-card {
+            background: var(--bg-card-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .glossary-de {
+            font-family: var(--font-mono);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        [data-theme="light"] .glossary-de {
+            color: #0284c7;
+        }
+
+        .glossary-zh {
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* ================================================================== */
+        /* Toast & Floating Utilities                                         */
+        /* ================================================================== */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid #38bdf8;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--bg-card-alt);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: none;
+            z-index: 90;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .back-to-top:hover {
+            border-color: var(--bmw-sky);
+        }
+
+        /* Summary Stats Footer */
+        footer.app-footer {
+            max-width: 1300px;
+            margin: 40px auto 0;
+            padding: 24px 20px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ================================================================== */
+        /* Responsive Breakpoints & Print Optimization                       */
+        /* ================================================================== */
+        @media (max-width: 768px) {
+            :root {
+                --font-base-size: 16px;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .col-key {
+                width: 25%;
+                min-width: 80px;
+            }
+            .col-german, .col-chinese {
+                width: auto;
+            }
+            table.data-table th, table.data-table td {
+                padding: 12px 14px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                font-size: 12pt;
+            }
+            header.app-header, .toolbar, .header-controls, .copy-btn, .back-to-top {
+                display: none !important;
+            }
+            .sheet-section {
+                border: 1px solid #ccc !important;
+                break-inside: avoid;
+                margin-bottom: 20px;
+                box-shadow: none !important;
+            }
+            table.data-table th, table.data-table td {
+                color: #000 !important;
+                border-color: #ddd !important;
+            }
+            .col-german {
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================================================================== -->
+    <!-- App Header & Global Control Bar                                      -->
+    <!-- ==================================================================== -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-logo">INPA</span>
+                <div class="brand-title">
+                    <h1>BMW MEVD176K 德文選單全功能 Map</h1>
+                    <p>BMW N55 / N20 / MEVD176K 引擎電腦選單結構、元件作動測試與調適值清除指南</p>
+                </div>
+            </div>
+
+            <div class="header-controls">
+                <!-- Font size adjuster -->
+                <div class="btn-group" title="調整字體大小">
+                    <button class="btn-icon" onclick="adjustFontSize(-0.1)" title="縮小字體">A-</button>
+                    <button class="btn-icon" onclick="resetFontSize()" title="重設字體大小">預設</button>
+                    <button class="btn-icon" onclick="adjustFontSize(0.1)" title="放大字體">A+</button>
+                </div>
+
+                <!-- Theme switch -->
+                <button class="btn" onclick="toggleTheme()" id="themeBtn" title="切換深淺模式">
+                    🌙 深色
+                </button>
+
+                <!-- Print button -->
+                <button class="btn" onclick="window.print()" title="列印或另存 PDF">
+                    🖨️ 列印
+                </button>
+
+                <!-- Link to main comparison -->
+                <a href="comparison.html" class="btn" title="查看系統挑選比較表">
+                    🔗 比較表
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================================================================== -->
+    <!-- Main Content Container                                               -->
+    <!-- ==================================================================== -->
+    <main class="container">
+
+        <!-- Search & Filter Toolbar -->
+        <section class="toolbar">
+            <div class="search-box-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="即時搜尋：輸入德文 (如 Lüfter, Steuern, VANOS) 或中文/代碼 (如 31E9, 風扇, 轉速, F6)..." autofocus>
+                <button id="searchClear" class="search-clear" onclick="clearSearch()" title="清除搜尋">✕</button>
+            </div>
+
+            <!-- Tab pills navigation -->
+            <div class="tabs-nav" id="tabContainer">
+                <button class="tab-btn active" onclick="filterTab('all', this)">
+                    📑 全部總覽 <span class="tab-badge" id="totalBadge">110</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('01_主選單', this)">
+                    🧭 主選單 (Hauptmenü) <span class="tab-badge">10</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('02_F6_Ansteuern', this)">
+                    ⚡ F6 元件作動 (Ansteuern / Steuern) <span class="tab-badge">18</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('F6_Ansteuern_E-Lufter', this)">
+                    🌪️ 電子散熱風扇作動 (Steuern E-Lüfter) <span class="tab-badge">9</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('03_Systemcheck', this)">
+                    🔍 系統檢查 (Systemcheck) <span class="tab-badge">13</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('04_Adaptation_1', this)">
+                    ⚠️ 調適值清除 1 (Adaptionen löschen Page 1) <span class="tab-badge">18</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('05_Adaptation_2', this)">
+                    ⚠️ 調適值清除 2 (Adaptionen löschen Page 2) <span class="tab-badge">15</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('06_其他與診斷Map', this)">
+                    🛠️ 其他與診斷 Map (Diagnose & Referenz) <span class="tab-badge">7</span>
+                </button>
+                <button class="tab-btn" onclick="filterTab('07_德文速查', this)">
+                    📖 德文速查字典 (Glossar Deutsch-Chinesisch) <span class="tab-badge">20</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Search Result Counter -->
+        <div id="searchStats" style="margin: 0 0 16px 4px; font-size: 0.95rem; color: var(--text-secondary); display: none;">
+            找到 <strong id="matchCount" style="color: var(--bmw-sky);">0</strong> 筆符合項目的結果
+        </div>
+
+        <!-- Sections for each Sheet -->
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 01_主選單                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_01_主選單" data-sheet="01_主選單">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">🧭</span>
+                    <h2 class="sheet-title">01. 主選單 (Hauptmenü)</h2>
+                </div>
+                <span class="badge">主選單層級</span>
+            </div>
+            
+            <div class="sheet-desc">
+                INPA MEVD176K 首頁功能鍵與主選單導航架構
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 Information INPA / SGBD 資訊">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                Information
+                                <button class="copy-btn" onclick="copyText('Information')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">INPA / SGBD 資訊</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 Identifikation DME 識別資料、版本">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                Identifikation
+                                <button class="copy-btn" onclick="copyText('Identifikation')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">DME 識別資料、版本</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 INPA-Wechsel INPA／控制單元切換">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                INPA-Wechsel
+                                <button class="copy-btn" onclick="copyText('INPA-Wechsel')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">INPA／控制單元切換</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Fehlerspeicher 故障碼記憶體：讀取／清除 DTC">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Fehlerspeicher
+                                <button class="copy-btn" onclick="copyText('Fehlerspeicher')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">故障碼記憶體：讀取／清除 DTC</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Status lesen 讀取即時狀態／感測器數據">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Status lesen
+                                <button class="copy-btn" onclick="copyText('Status lesen')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">讀取即時狀態／感測器數據</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 Ansteuern / Steuern 元件作動／Actuator control">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                Ansteuern / Steuern
+                                <button class="copy-btn" onclick="copyText('Ansteuern / Steuern')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">元件作動／Actuator control</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F7 FeTraWe 故障相關特殊功能">
+                            <td class="col-key"><span class="keycap">F7</span></td>
+                            <td class="col-german" >
+                                FeTraWe
+                                <button class="copy-btn" onclick="copyText('FeTraWe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">故障相關特殊功能</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F8 Funktionen 其他 ECU 功能">
+                            <td class="col-key"><span class="keycap">F8</span></td>
+                            <td class="col-german" >
+                                Funktionen
+                                <button class="copy-btn" onclick="copyText('Funktionen')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">其他 ECU 功能</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F10 Ende / Zurück 返回／退出">
+                            <td class="col-key"><span class="keycap">F10</span></td>
+                            <td class="col-german" >
+                                Ende / Zurück
+                                <button class="copy-btn" onclick="copyText('Ende / Zurück')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">返回／退出</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F6 Steuergeräte Reset DME／控制單元 Reset">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F6</span></td>
+                            <td class="col-german" >
+                                Steuergeräte Reset
+                                <button class="copy-btn" onclick="copyText('Steuergeräte Reset')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">DME／控制單元 Reset</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 02_F6_Ansteuern                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_02_F6_Ansteuern" data-sheet="02_F6_Ansteuern">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">⚡</span>
+                    <h2 class="sheet-title">02. F6 元件作動 (Ansteuern / Steuern)</h2>
+                </div>
+                <span class="badge">作動測試清單</span>
+            </div>
+            
+            <div class="sheet-desc">
+                執行器控制選單：包含散熱風扇、排氣閥、節氣門、O2加熱、發電機、VANOS 等元件測試
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 Steuern E-Lüfter 電子水箱散熱風扇控制；31E9 診斷重點">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                Steuern E-Lüfter
+                                <button class="copy-btn" onclick="copyText('Steuern E-Lüfter')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">電子水箱散熱風扇控制；31E9 診斷重點</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 Steuern Abgasklappe 排氣閥控制">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                Steuern Abgasklappe
+                                <button class="copy-btn" onclick="copyText('Steuern Abgasklappe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">排氣閥控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 Steuern Drosselklappe 電子節氣門控制">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                Steuern Drosselklappe
+                                <button class="copy-btn" onclick="copyText('Steuern Drosselklappe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">電子節氣門控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Steuern Lambdasondenheizung Lambda／O2 感知器加熱控制">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Steuern Lambdasondenheizung
+                                <button class="copy-btn" onclick="copyText('Steuern Lambdasondenheizung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Lambda／O2 感知器加熱控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Steuern Generatorspannung 發電機電壓控制">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Steuern Generatorspannung
+                                <button class="copy-btn" onclick="copyText('Steuern Generatorspannung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">發電機電壓控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 Steuern Leerlaufabgleich 怠速調整控制">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                Steuern Leerlaufabgleich
+                                <button class="copy-btn" onclick="copyText('Steuern Leerlaufabgleich')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">怠速調整控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F7 Steuern Ladedrucksteller 渦輪增壓壓力 actuator 控制">
+                            <td class="col-key"><span class="keycap">F7</span></td>
+                            <td class="col-german" >
+                                Steuern Ladedrucksteller
+                                <button class="copy-btn" onclick="copyText('Steuern Ladedrucksteller')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">渦輪增壓壓力 actuator 控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F8 Steuern VANOS VANOS 作動控制">
+                            <td class="col-key"><span class="keycap">F8</span></td>
+                            <td class="col-german" >
+                                Steuern VANOS
+                                <button class="copy-btn" onclick="copyText('Steuern VANOS')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">VANOS 作動控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F9 Sleep Mode 睡眠模式">
+                            <td class="col-key"><span class="keycap">F9</span></td>
+                            <td class="col-german" >
+                                Sleep Mode
+                                <button class="copy-btn" onclick="copyText('Sleep Mode')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">睡眠模式</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F1 Steuern Umluftventil 渦輪回流／旁通閥控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F1</span></td>
+                            <td class="col-german" >
+                                Steuern Umluftventil
+                                <button class="copy-btn" onclick="copyText('Steuern Umluftventil')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">渦輪回流／旁通閥控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F2 Steuern Kennfeldthermostat 電控 MAP thermostat 控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F2</span></td>
+                            <td class="col-german" >
+                                Steuern Kennfeldthermostat
+                                <button class="copy-btn" onclick="copyText('Steuern Kennfeldthermostat')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">電控 MAP thermostat 控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F3 Steuern gesteuerte Luftführung 主動式進氣導流／風門控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F3</span></td>
+                            <td class="col-german" >
+                                Steuern gesteuerte Luftführung
+                                <button class="copy-btn" onclick="copyText('Steuern gesteuerte Luftführung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">主動式進氣導流／風門控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F4 Steuern EWAP EVAP 系統控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F4</span></td>
+                            <td class="col-german" >
+                                Steuern EWAP
+                                <button class="copy-btn" onclick="copyText('Steuern EWAP')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">EVAP 系統控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F5 Steuern MIL/EML MIL / EML 警示燈控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F5</span></td>
+                            <td class="col-german" >
+                                Steuern MIL/EML
+                                <button class="copy-btn" onclick="copyText('Steuern MIL/EML')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">MIL / EML 警示燈控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F6 Steuern Elektrische Kraftstoffpumpe 電動燃油泵控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F6</span></td>
+                            <td class="col-german" >
+                                Steuern Elektrische Kraftstoffpumpe
+                                <button class="copy-btn" onclick="copyText('Steuern Elektrische Kraftstoffpumpe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">電動燃油泵控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F8 Steuern ZWDiag ZWDiag 診斷功能">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F8</span></td>
+                            <td class="col-german" >
+                                Steuern ZWDiag
+                                <button class="copy-btn" onclick="copyText('Steuern ZWDiag')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">ZWDiag 診斷功能</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F9 Steuern TEAV TEAV 控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F9</span></td>
+                            <td class="col-german" >
+                                Steuern TEAV
+                                <button class="copy-btn" onclick="copyText('Steuern TEAV')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">TEAV 控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F10 Zurück 返回">
+                            <td class="col-key"><span class="keycap">F10</span></td>
+                            <td class="col-german" >
+                                Zurück
+                                <button class="copy-btn" onclick="copyText('Zurück')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">返回</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: F6_Ansteuern_E-Lufter                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_F6_Ansteuern_E-Lufter" data-sheet="F6_Ansteuern_E-Lufter">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">🌪️</span>
+                    <h2 class="sheet-title">02-1. 電子散熱風扇作動 (Steuern E-Lüfter)</h2>
+                </div>
+                <span class="badge">風扇作動子選單 (31E9 關鍵)</span>
+            </div>
+            
+            <div class="sheet-desc">
+                散熱風扇各段速手動驅動 (10%, 60%, 70%, 90%, 自訂%) 與控制權切換
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 schwacher Betrieb – 10% 低速運轉 10%">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                schwacher Betrieb – 10%
+                                <button class="copy-btn" onclick="copyText('schwacher Betrieb – 10%')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">低速運轉 10%</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 mittlerer Betrieb – 60% 中速運轉 60%">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                mittlerer Betrieb – 60%
+                                <button class="copy-btn" onclick="copyText('mittlerer Betrieb – 60%')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">中速運轉 60%</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 stärkerer Betrieb – 70% 較高速運轉 70%">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                stärkerer Betrieb – 70%
+                                <button class="copy-btn" onclick="copyText('stärkerer Betrieb – 70%')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">較高速運轉 70%</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Betrieb in Vollast – 90% 高負荷／全速 90%">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Betrieb in Vollast – 90%
+                                <button class="copy-btn" onclick="copyText('Betrieb in Vollast – 90%')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">高負荷／全速 90%</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Beliebiger Betrieb – [%] 自訂風扇輸出 %">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Beliebiger Betrieb – [%]
+                                <button class="copy-btn" onclick="copyText('Beliebiger Betrieb – [%]')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">自訂風扇輸出 %</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 Ansteuerung zurück an Steuergerät 把控制權交還 DME">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                Ansteuerung zurück an Steuergerät
+                                <button class="copy-btn" onclick="copyText('Ansteuerung zurück an Steuergerät')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">把控制權交還 DME</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F9 Bildschirmdruck 螢幕列印">
+                            <td class="col-key"><span class="keycap">F9</span></td>
+                            <td class="col-german" >
+                                Bildschirmdruck
+                                <button class="copy-btn" onclick="copyText('Bildschirmdruck')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">螢幕列印</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F10 Zurück 返回">
+                            <td class="col-key"><span class="keycap">F10</span></td>
+                            <td class="col-german" >
+                                Zurück
+                                <button class="copy-btn" onclick="copyText('Zurück')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">返回</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F10 Exit 離開">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F10</span></td>
+                            <td class="col-german" >
+                                Exit
+                                <button class="copy-btn" onclick="copyText('Exit')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">離開</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 03_Systemcheck                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_03_Systemcheck" data-sheet="03_Systemcheck">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">🔍</span>
+                    <h2 class="sheet-title">03. 系統檢查 (Systemcheck)</h2>
+                </div>
+                <span class="badge">進階診斷測試</span>
+            </div>
+            
+            <div class="sheet-desc">
+                GLF 主動進氣導流、觸媒快測、Injector IMA 編碼、DMTL 洩漏測試、IBS 感測器診斷
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 Gesteuerte Luftführung (GLF) 主動式進氣導流／風門；不是 E-Lüfter">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                Gesteuerte Luftführung (GLF)
+                                <button class="copy-btn" onclick="copyText('Gesteuerte Luftführung (GLF)')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">主動式進氣導流／風門；不是 E-Lüfter</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 Tankentlüftungsventil EVAP purge valve">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                Tankentlüftungsventil
+                                <button class="copy-btn" onclick="copyText('Tankentlüftungsventil')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">EVAP purge valve</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 Leerlauferhöhung 提高怠速">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                Leerlauferhöhung
+                                <button class="copy-btn" onclick="copyText('Leerlauferhöhung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">提高怠速</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Lambdasonden vor Kat 觸媒前 Lambda／O2 sensors">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Lambdasonden vor Kat
+                                <button class="copy-btn" onclick="copyText('Lambdasonden vor Kat')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">觸媒前 Lambda／O2 sensors</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Codierung IMA-Werte Injector IMA 校正值編碼">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Codierung IMA-Werte
+                                <button class="copy-btn" onclick="copyText('Codierung IMA-Werte')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Injector IMA 校正值編碼</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 DMTL Check DMTL／EVAP 洩漏診斷">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                DMTL Check
+                                <button class="copy-btn" onclick="copyText('DMTL Check')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">DMTL／EVAP 洩漏診斷</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F7 IBS 智慧型電瓶感測器">
+                            <td class="col-key"><span class="keycap">F7</span></td>
+                            <td class="col-german" >
+                                IBS
+                                <button class="copy-btn" onclick="copyText('IBS')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">智慧型電瓶感測器</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F1 Ansteuern Kurztest Kat 觸媒快速測試">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F1</span></td>
+                            <td class="col-german" >
+                                Ansteuern Kurztest Kat
+                                <button class="copy-btn" onclick="copyText('Ansteuern Kurztest Kat')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">觸媒快速測試</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F2 Einspritzventil ausblenden 個別停用 injector">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F2</span></td>
+                            <td class="col-german" >
+                                Einspritzventil ausblenden
+                                <button class="copy-btn" onclick="copyText('Einspritzventil ausblenden')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">個別停用 injector</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F4 Abgasturbolader 渦輪增壓器診斷">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F4</span></td>
+                            <td class="col-german" >
+                                Abgasturbolader
+                                <button class="copy-btn" onclick="copyText('Abgasturbolader')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">渦輪增壓器診斷</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F5 Lambdaregelung Aus 關閉 Lambda 閉迴路控制">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F5</span></td>
+                            <td class="col-german" >
+                                Lambdaregelung Aus
+                                <button class="copy-btn" onclick="copyText('Lambdaregelung Aus')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">關閉 Lambda 閉迴路控制</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F7 VVT Anschlag VVT／Valvetronic 極限位置">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F7</span></td>
+                            <td class="col-german" >
+                                VVT Anschlag
+                                <button class="copy-btn" onclick="copyText('VVT Anschlag')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">VVT／Valvetronic 極限位置</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F9 Diagnosefunktion Öldruckregelung 機油壓力控制診斷">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F9</span></td>
+                            <td class="col-german" >
+                                Diagnosefunktion Öldruckregelung
+                                <button class="copy-btn" onclick="copyText('Diagnosefunktion Öldruckregelung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">機油壓力控制診斷</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 04_Adaptation_1                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_04_Adaptation_1" data-sheet="04_Adaptation_1">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">⚠️</span>
+                    <h2 class="sheet-title">04. 調適值清除 1 (Adaptionen löschen Page 1)</h2>
+                </div>
+                <span class="badge">重設調適值 (非查看)</span>
+            </div>
+            
+            <div class="sheet-desc">
+                怠速、爆震、Lambda、EVAP、進氣歧管、節氣門、EGR、NOx、高壓泵、電瓶更換調適值重設
+            </div>
+
+            <div class="warning-callout">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-content">
+                    <strong>重要安全提醒與先決條件 (Sicherheitshinweise & Voraussetzungen)</strong>
+                    <ul>
+                        <li><strong>本頁為清除調適值</strong>：此頁所有功能鍵均為「清除／重設 Adaptation」，並不是查看數據！</li>
+                        <li><strong>發動前先決條件</strong>：引擎轉速 <code class="keycap">Drehzahl = 0 rpm</code>（引擎熄火未運轉）且點火電源開關 <code class="keycap">Klemme 15 = Ein</code>（KL15 電門開）。</li>
+                        <li><strong>操作原則</strong>：無特定更換零件或原廠指定診斷程序時，<strong>請勿任意清除調適值</strong>，以免造成怠速不穩或重新學習週期過長。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 Leerlaufabgleich 怠速 adaptation">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                Leerlaufabgleich
+                                <button class="copy-btn" onclick="copyText('Leerlaufabgleich')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">怠速 adaptation <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">執行條件: Drehzahl = 0 rpm 且 Klemme 15 = Ein</span></td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 Klopfen 爆震控制 adaptation">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                Klopfen
+                                <button class="copy-btn" onclick="copyText('Klopfen')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">爆震控制 adaptation <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">原則: 沒有對應維修程序時不要任意清除</span></td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 Lambdasonden Lambda／O2 adaptation">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                Lambdasonden
+                                <button class="copy-btn" onclick="copyText('Lambdasonden')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Lambda／O2 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Tankentlüftung EVAP adaptation">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Tankentlüftung
+                                <button class="copy-btn" onclick="copyText('Tankentlüftung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">EVAP adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Saugrohrmodell 進氣歧管模型 adaptation">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Saugrohrmodell
+                                <button class="copy-btn" onclick="copyText('Saugrohrmodell')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">進氣歧管模型 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 Drosselklappe 電子節氣門 adaptation">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                Drosselklappe
+                                <button class="copy-btn" onclick="copyText('Drosselklappe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">電子節氣門 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F7 Lambdaregelung Lambda／空燃比控制 adaptation">
+                            <td class="col-key"><span class="keycap">F7</span></td>
+                            <td class="col-german" >
+                                Lambdaregelung
+                                <button class="copy-btn" onclick="copyText('Lambdaregelung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Lambda／空燃比控制 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F8 Abgasrückführungsventil EGR 相關 adaptation">
+                            <td class="col-key"><span class="keycap">F8</span></td>
+                            <td class="col-german" >
+                                Abgasrückführungsventil
+                                <button class="copy-btn" onclick="copyText('Abgasrückführungsventil')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">EGR 相關 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F9 Laststeuerung 負荷控制 adaptation">
+                            <td class="col-key"><span class="keycap">F9</span></td>
+                            <td class="col-german" >
+                                Laststeuerung
+                                <button class="copy-btn" onclick="copyText('Laststeuerung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">負荷控制 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F1 NOx-Sensor NOx sensor adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F1</span></td>
+                            <td class="col-german" >
+                                NOx-Sensor
+                                <button class="copy-btn" onclick="copyText('NOx-Sensor')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">NOx sensor adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F2 Sekundärluft 二次空氣系統 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F2</span></td>
+                            <td class="col-german" >
+                                Sekundärluft
+                                <button class="copy-btn" onclick="copyText('Sekundärluft')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">二次空氣系統 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F3 Hochdruckpumpe HPFP adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F3</span></td>
+                            <td class="col-german" >
+                                Hochdruckpumpe
+                                <button class="copy-btn" onclick="copyText('Hochdruckpumpe')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">HPFP adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F4 Batteriewechsel 更換電瓶相關 adaptation／記錄">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F4</span></td>
+                            <td class="col-german" >
+                                Batteriewechsel
+                                <button class="copy-btn" onclick="copyText('Batteriewechsel')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">更換電瓶相關 adaptation／記錄</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F5 Oktanzahl 汽油辛烷值學習">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F5</span></td>
+                            <td class="col-german" >
+                                Oktanzahl
+                                <button class="copy-btn" onclick="copyText('Oktanzahl')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">汽油辛烷值學習</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F6 gelernte Varianten 已學習 variants">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F6</span></td>
+                            <td class="col-german" >
+                                gelernte Varianten
+                                <button class="copy-btn" onclick="copyText('gelernte Varianten')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">已學習 variants</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F7 WT 需依 SGBD 定義確認">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F7</span></td>
+                            <td class="col-german" >
+                                WT
+                                <button class="copy-btn" onclick="copyText('WT')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">需依 SGBD 定義確認</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F8 VANOS VANOS adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F8</span></td>
+                            <td class="col-german" >
+                                VANOS
+                                <button class="copy-btn" onclick="copyText('VANOS')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">VANOS adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F9 Segment Segment adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F9</span></td>
+                            <td class="col-german" >
+                                Segment
+                                <button class="copy-btn" onclick="copyText('Segment')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Segment adaptation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 05_Adaptation_2                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_05_Adaptation_2" data-sheet="05_Adaptation_2">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">⚠️</span>
+                    <h2 class="sheet-title">05. 調適值清除 2 (Adaptionen löschen Page 2)</h2>
+                </div>
+                <span class="badge">重設調適值 (非查看)</span>
+            </div>
+            
+            <div class="sheet-desc">
+                燃燒控制、汽缸平衡、各缸運轉平順度、Injector 能量/老化、燃油品質與【Shift+F6 清除全部調適值】
+            </div>
+
+            <div class="warning-callout">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-content">
+                    <strong>重要安全提醒與先決條件 (Sicherheitshinweise & Voraussetzungen)</strong>
+                    <ul>
+                        <li><strong>本頁為清除調適值</strong>：此頁所有功能鍵均為「清除／重設 Adaptation」，並不是查看數據！</li>
+                        <li><strong>發動前先決條件</strong>：引擎轉速 <code class="keycap">Drehzahl = 0 rpm</code>（引擎熄火未運轉）且點火電源開關 <code class="keycap">Klemme 15 = Ein</code>（KL15 電門開）。</li>
+                        <li><strong>操作原則</strong>：無特定更換零件或原廠指定診斷程序時，<strong>請勿任意清除調適值</strong>，以免造成怠速不穩或重新學習週期過長。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-key">按鍵 / 項目</th>
+                            <th class="col-german">德文 (German)</th>
+                            <th class="col-chinese">中文／用途說明 (Explanation)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-item" data-search="F1 Verbrennungsregelung 燃燒控制 adaptation">
+                            <td class="col-key"><span class="keycap">F1</span></td>
+                            <td class="col-german" >
+                                Verbrennungsregelung
+                                <button class="copy-btn" onclick="copyText('Verbrennungsregelung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">燃燒控制 adaptation <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">執行條件: Drehzahl = 0 rpm 且 Klemme 15 = Ein</span></td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F2 Zylindergleichstellung für EOL-Test und Fahrzyklus 汽缸平衡／EOL、行駛循環 adaptation">
+                            <td class="col-key"><span class="keycap">F2</span></td>
+                            <td class="col-german" >
+                                Zylindergleichstellung für EOL-Test und Fahrzyklus
+                                <button class="copy-btn" onclick="copyText('Zylindergleichstellung für EOL-Test und Fahrzyklus')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">汽缸平衡／EOL、行駛循環 adaptation <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: #f59e0b;">原則: 沒有對應維修程序時不要任意清除</span></td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F3 Laufunruhe und zylinderindividuelle Lambdaregelung 各缸運轉平順度＋各缸 Lambda adaptation">
+                            <td class="col-key"><span class="keycap">F3</span></td>
+                            <td class="col-german" >
+                                Laufunruhe und zylinderindividuelle Lambdaregelung
+                                <button class="copy-btn" onclick="copyText('Laufunruhe und zylinderindividuelle Lambdaregelung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">各缸運轉平順度＋各缸 Lambda adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F4 Phase-Shift Adaption Bank 1 Bank 1 phase-shift adaptation">
+                            <td class="col-key"><span class="keycap">F4</span></td>
+                            <td class="col-german" >
+                                Phase-Shift Adaption Bank 1
+                                <button class="copy-btn" onclick="copyText('Phase-Shift Adaption Bank 1')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 1 phase-shift adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F5 Phase-Shift Adaption Bank 2 Bank 2 phase-shift adaptation">
+                            <td class="col-key"><span class="keycap">F5</span></td>
+                            <td class="col-german" >
+                                Phase-Shift Adaption Bank 2
+                                <button class="copy-btn" onclick="copyText('Phase-Shift Adaption Bank 2')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 2 phase-shift adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F6 Energieadaption Injektoren Injector 能量 adaptation">
+                            <td class="col-key"><span class="keycap">F6</span></td>
+                            <td class="col-german" >
+                                Energieadaption Injektoren
+                                <button class="copy-btn" onclick="copyText('Energieadaption Injektoren')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Injector 能量 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F7 Adaption Nullgangsensor 零行程／零點 sensor adaptation">
+                            <td class="col-key"><span class="keycap">F7</span></td>
+                            <td class="col-german" >
+                                Adaption Nullgangsensor
+                                <button class="copy-btn" onclick="copyText('Adaption Nullgangsensor')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">零行程／零點 sensor adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F8 Adaption Langzeit für Injektoralterung Bank 1 Bank 1 injector 老化長期 adaptation">
+                            <td class="col-key"><span class="keycap">F8</span></td>
+                            <td class="col-german" >
+                                Adaption Langzeit für Injektoralterung Bank 1
+                                <button class="copy-btn" onclick="copyText('Adaption Langzeit für Injektoralterung Bank 1')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 1 injector 老化長期 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="F9 Adaption Langzeit für Injektoralterung Bank 2 Bank 2 injector 老化長期 adaptation">
+                            <td class="col-key"><span class="keycap">F9</span></td>
+                            <td class="col-german" >
+                                Adaption Langzeit für Injektoralterung Bank 2
+                                <button class="copy-btn" onclick="copyText('Adaption Langzeit für Injektoralterung Bank 2')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 2 injector 老化長期 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F1 CiLC-Adaptionswerte Injektortausch Bank 1 Bank 1 更換 injector 後 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F1</span></td>
+                            <td class="col-german" >
+                                CiLC-Adaptionswerte Injektortausch Bank 1
+                                <button class="copy-btn" onclick="copyText('CiLC-Adaptionswerte Injektortausch Bank 1')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 1 更換 injector 後 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F2 CiLC-Adaptionswerte Injektortausch Bank 2 Bank 2 更換 injector 後 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F2</span></td>
+                            <td class="col-german" >
+                                CiLC-Adaptionswerte Injektortausch Bank 2
+                                <button class="copy-btn" onclick="copyText('CiLC-Adaptionswerte Injektortausch Bank 2')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Bank 2 更換 injector 後 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F3 Kleinstmengenadaption Injector 最小噴油量 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F3</span></td>
+                            <td class="col-german" >
+                                Kleinstmengenadaption
+                                <button class="copy-btn" onclick="copyText('Kleinstmengenadaption')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">Injector 最小噴油量 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F4 Kraftstoffqualitätserfassung 燃油品質辨識 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F4</span></td>
+                            <td class="col-german" >
+                                Kraftstoffqualitätserfassung
+                                <button class="copy-btn" onclick="copyText('Kraftstoffqualitätserfassung')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">燃油品質辨識 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F5 Adaption Bereichserkennung Benzin ... 汽油工作範圍／燃料辨識 adaptation">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F5</span></td>
+                            <td class="col-german" >
+                                Adaption Bereichserkennung Benzin ...
+                                <button class="copy-btn" onclick="copyText('Adaption Bereichserkennung Benzin ...')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">汽油工作範圍／燃料辨識 adaptation</td>
+                        </tr>
+                        <tr class="table-row-item" data-search="Shift+F6 Alle Adaptionen ⚠️ 清除全部 DME adaptations">
+                            <td class="col-key"><span class="keycap keycap-shift">Shift+F6</span></td>
+                            <td class="col-german" style="color: var(--bmw-red); font-weight: bold;">
+                                Alle Adaptionen
+                                <button class="copy-btn" onclick="copyText('Alle Adaptionen')" title="複製德文">📋</button>
+                            </td>
+                            <td class="col-chinese">⚠️ 清除全部 DME adaptations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 06_其他與診斷Map                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_06_其他與診斷Map" data-sheet="06_其他與診斷Map">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">🛠️</span>
+                    <h2 class="sheet-title">06. 其他與診斷 Map (Diagnose & Referenz)</h2>
+                </div>
+                <span class="badge">檔案與量測基準</span>
+            </div>
+            
+            <div class="sheet-desc">
+                INPA IPO/PRG 關聯檔、散熱風扇作動路徑、MSV 訊號判定及風扇線圈阻抗實測基準
+            </div>
+            <div class="diag-grid">
+                <div class="diag-card table-row-item" data-search="MSV Stellgliedansteuerung MSV MSV 執行器控制；不是 E-Lüfter">
+                    <div class="diag-card-header">
+                        <span class="keycap">MSV</span>
+                        <button class="copy-btn" onclick="copyText('Stellgliedansteuerung MSV')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">Stellgliedansteuerung MSV</div>
+                    <div class="diag-card-body">MSV 執行器控制；不是 E-Lüfter</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="MSV PWM Signal für MSV MSV PWM duty；例如 27.5%">
+                    <div class="diag-card-header">
+                        <span class="keycap">MSV</span>
+                        <button class="copy-btn" onclick="copyText('PWM Signal für MSV')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">PWM Signal für MSV</div>
+                    <div class="diag-card-body">MSV PWM duty；例如 27.5%</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="檔案 MEVD176K.IPO INPA UI script；Version 1.060">
+                    <div class="diag-card-header">
+                        <span class="keycap">檔案</span>
+                        <button class="copy-btn" onclick="copyText('MEVD176K.IPO')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">MEVD176K.IPO</div>
+                    <div class="diag-card-body">INPA UI script；Version 1.060</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="檔案 MEVD176K.PRG EDIABAS 與 DME 通訊的 SGBD/PRG；KWP protocol">
+                    <div class="diag-card-header">
+                        <span class="keycap">檔案</span>
+                        <button class="copy-btn" onclick="copyText('MEVD176K.PRG')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">MEVD176K.PRG</div>
+                    <div class="diag-card-body">EDIABAS 與 DME 通訊的 SGBD/PRG；KWP protocol</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="診斷 MEVD176K → F6 → F1 Steuern E-Lüfter 31E9／電子散熱風扇 actuator test">
+                    <div class="diag-card-header">
+                        <span class="keycap">診斷</span>
+                        <button class="copy-btn" onclick="copyText('MEVD176K → F6 → F1 Steuern E-Lüfter')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">MEVD176K → F6 → F1 Steuern E-Lüfter</div>
+                    <div class="diag-card-body">31E9／電子散熱風扇 actuator test</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="診斷 MEVD176K → F6 → F2 Steuern Abgasklappe 排氣閥 actuator control">
+                    <div class="diag-card-header">
+                        <span class="keycap">診斷</span>
+                        <button class="copy-btn" onclick="copyText('MEVD176K → F6 → F2 Steuern Abgasklappe')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">MEVD176K → F6 → F2 Steuern Abgasklappe</div>
+                    <div class="diag-card-body">排氣閥 actuator control</div>
+                </div>
+                <div class="diag-card table-row-item" data-search="量測 Fan PWM ↔ B+ = 1.547 kΩ 本次已記錄的風扇本體靜態阻抗">
+                    <div class="diag-card-header">
+                        <span class="keycap">量測</span>
+                        <button class="copy-btn" onclick="copyText('Fan PWM ↔ B+ = 1.547 kΩ')" title="複製德文/檔名">📋 複製</button>
+                    </div>
+                    <div class="diag-card-title">Fan PWM ↔ B+ = 1.547 kΩ</div>
+                    <div class="diag-card-body">本次已記錄的風扇本體靜態阻抗</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- Sheet Section: 07_德文速查                                          -->
+        <!-- ================================================================ -->
+        <section class="sheet-section" id="section_07_德文速查" data-sheet="07_德文速查">
+            <div class="sheet-header">
+                <div class="sheet-title-group">
+                    <span style="font-size: 1.5rem;">📖</span>
+                    <h2 class="sheet-title">07. 德文速查字典 (Glossar Deutsch-Chinesisch)</h2>
+                </div>
+                <span class="badge">診斷常用字彙</span>
+            </div>
+            
+            <div class="sheet-desc">
+                INPA / ISTA 常見德文術語、動作指令與中英文對照速查
+            </div>
+            <div class="glossary-grid">
+                <div class="glossary-card table-row-item" data-search="lesen 讀取">
+                    <div>
+                        <span class="glossary-de">lesen</span>
+                        <button class="copy-btn" onclick="copyText('lesen')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">讀取</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="löschen 清除／刪除">
+                    <div>
+                        <span class="glossary-de">löschen</span>
+                        <button class="copy-btn" onclick="copyText('löschen')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">清除／刪除</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="steuern 控制">
+                    <div>
+                        <span class="glossary-de">steuern</span>
+                        <button class="copy-btn" onclick="copyText('steuern')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">控制</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="ansteuern 驅動／主動控制">
+                    <div>
+                        <span class="glossary-de">ansteuern</span>
+                        <button class="copy-btn" onclick="copyText('ansteuern')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">驅動／主動控制</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Stellglied actuator／執行器">
+                    <div>
+                        <span class="glossary-de">Stellglied</span>
+                        <button class="copy-btn" onclick="copyText('Stellglied')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">actuator／執行器</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Fehlerspeicher 故障碼記憶體">
+                    <div>
+                        <span class="glossary-de">Fehlerspeicher</span>
+                        <button class="copy-btn" onclick="copyText('Fehlerspeicher')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">故障碼記憶體</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Identifikation 識別">
+                    <div>
+                        <span class="glossary-de">Identifikation</span>
+                        <button class="copy-btn" onclick="copyText('Identifikation')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">識別</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Zurück 返回">
+                    <div>
+                        <span class="glossary-de">Zurück</span>
+                        <button class="copy-btn" onclick="copyText('Zurück')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">返回</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Lüfter 風扇">
+                    <div>
+                        <span class="glossary-de">Lüfter</span>
+                        <button class="copy-btn" onclick="copyText('Lüfter')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">風扇</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="E-Lüfter 電子散熱風扇">
+                    <div>
+                        <span class="glossary-de">E-Lüfter</span>
+                        <button class="copy-btn" onclick="copyText('E-Lüfter')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">電子散熱風扇</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Abgasklappe 排氣閥">
+                    <div>
+                        <span class="glossary-de">Abgasklappe</span>
+                        <button class="copy-btn" onclick="copyText('Abgasklappe')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">排氣閥</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Drosselklappe 節氣門">
+                    <div>
+                        <span class="glossary-de">Drosselklappe</span>
+                        <button class="copy-btn" onclick="copyText('Drosselklappe')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">節氣門</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Hochdruckpumpe 高壓燃油泵">
+                    <div>
+                        <span class="glossary-de">Hochdruckpumpe</span>
+                        <button class="copy-btn" onclick="copyText('Hochdruckpumpe')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">高壓燃油泵</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Lambdasonde Lambda／O2 sensor">
+                    <div>
+                        <span class="glossary-de">Lambdasonde</span>
+                        <button class="copy-btn" onclick="copyText('Lambdasonde')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">Lambda／O2 sensor</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Tankentlüftung EVAP purge">
+                    <div>
+                        <span class="glossary-de">Tankentlüftung</span>
+                        <button class="copy-btn" onclick="copyText('Tankentlüftung')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">EVAP purge</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Ladedruck 增壓壓力">
+                    <div>
+                        <span class="glossary-de">Ladedruck</span>
+                        <button class="copy-btn" onclick="copyText('Ladedruck')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">增壓壓力</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="VANOS 可變凸輪軸正時">
+                    <div>
+                        <span class="glossary-de">VANOS</span>
+                        <button class="copy-btn" onclick="copyText('VANOS')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">可變凸輪軸正時</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Drehzahl 轉速">
+                    <div>
+                        <span class="glossary-de">Drehzahl</span>
+                        <button class="copy-btn" onclick="copyText('Drehzahl')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">轉速</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Klemme 15 KL15 點火電源">
+                    <div>
+                        <span class="glossary-de">Klemme 15</span>
+                        <button class="copy-btn" onclick="copyText('Klemme 15')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">KL15 點火電源</div>
+                </div>
+                <div class="glossary-card table-row-item" data-search="Alle Adaptionen 全部 adaptations">
+                    <div>
+                        <span class="glossary-de">Alle Adaptionen</span>
+                        <button class="copy-btn" onclick="copyText('Alle Adaptionen')" title="複製德文">📋</button>
+                    </div>
+                    <div class="glossary-zh">全部 adaptations</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        ▲ 頂部
+    </button>
+
+    <!-- Toast Notification -->
+    <div id="toast">已複製到剪貼簿</div>
+
+    <!-- Application Footer -->
+    <footer class="app-footer">
+        <p>BMW MEVD176K INPA Quick Reference Map • 適用於 BMW F 系列 N55 / N20 / MEVD176K 引擎控制電腦</p>
+        <p style="margin-top: 6px; font-size: 0.85rem;">資料來源：INPA_MEVD176K_德文選單_Map.xlsx • 託管於 mylin102.github.io</p>
+    </footer>
+
+    <!-- ==================================================================== -->
+    <!-- Interactive Client Scripts                                           -->
+    <!-- ==================================================================== -->
+    <script>
+        // --- Font Size Adjustment ---
+        let currentScale = 1.0;
+        function adjustFontSize(delta) {
+            currentScale = Math.min(Math.max(0.8, currentScale + delta), 1.4);
+            document.documentElement.style.setProperty('--font-scale', currentScale);
+            localStorage.setItem('inpa_font_scale', currentScale);
+        }
+
+        function resetFontSize() {
+            currentScale = 1.0;
+            document.documentElement.style.setProperty('--font-scale', 1.0);
+            localStorage.setItem('inpa_font_scale', 1.0);
+        }
+
+        // --- Theme Switch ---
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('themeBtn').innerHTML = newTheme === 'light' ? '☀️ 淺色' : '🌙 深色';
+            localStorage.setItem('inpa_theme', newTheme);
+        }
+
+        // Load saved preferences
+        (function() {
+            const savedTheme = localStorage.getItem('inpa_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const themeBtn = document.getElementById('themeBtn');
+            if (themeBtn) {
+                themeBtn.innerHTML = savedTheme === 'light' ? '☀️ 淺色' : '🌙 深色';
+            }
+            const savedScale = parseFloat(localStorage.getItem('inpa_font_scale'));
+            if (!isNaN(savedScale)) {
+                currentScale = savedScale;
+                document.documentElement.style.setProperty('--font-scale', currentScale);
+            }
+        })();
+
+        // --- Tab Filtering ---
+        let currentTab = 'all';
+        function filterTab(sheetName, btnElement) {
+            currentTab = sheetName;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            const sections = document.querySelectorAll('.sheet-section');
+            sections.forEach(sec => {
+                if (sheetName === 'all' || sec.getAttribute('data-sheet') === sheetName) {
+                    sec.style.display = 'block';
+                } else {
+                    sec.style.display = 'none';
+                }
+            });
+
+            // Re-apply search filter if query exists
+            handleSearch();
+        }
+
+        // --- Live Search ---
+        const searchInput = document.getElementById('searchInput');
+        const searchClear = document.getElementById('searchClear');
+        const searchStats = document.getElementById('searchStats');
+        const matchCount = document.getElementById('matchCount');
+
+        function handleSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            searchClear.style.display = query ? 'block' : 'none';
+
+            let matches = 0;
+            const sections = document.querySelectorAll('.sheet-section');
+
+            sections.forEach(sec => {
+                const isTabVisible = (currentTab === 'all' || sec.getAttribute('data-sheet') === currentTab);
+                if (!isTabVisible) {
+                    sec.style.display = 'none';
+                    return;
+                }
+
+                const items = sec.querySelectorAll('.table-row-item');
+                let secMatches = 0;
+
+                items.forEach(item => {
+                    const text = item.getAttribute('data-search').toLowerCase();
+                    if (!query || text.includes(query)) {
+                        item.style.display = '';
+                        secMatches++;
+                        matches++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Hide section if no items match search query
+                if (query && secMatches === 0) {
+                    sec.style.display = 'none';
+                } else if (isTabVisible) {
+                    sec.style.display = 'block';
+                }
+            });
+
+            if (query) {
+                searchStats.style.display = 'block';
+                matchCount.textContent = matches;
+            } else {
+                searchStats.style.display = 'none';
+            }
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+
+        function clearSearch() {
+            searchInput.value = '';
+            handleSearch();
+            searchInput.focus();
+        }
+
+        // --- Copy to Clipboard Toast ---
+        function copyText(text) {
+            if (!navigator.clipboard) {
+                const input = document.createElement('input');
+                input.value = text;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+            } else {
+                navigator.clipboard.writeText(text);
+            }
+
+            const toast = document.getElementById('toast');
+            toast.textContent = `已複製: "${text}"`;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }
+
+        // --- Back to top button visibility ---
+        window.addEventListener('scroll', () => {
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
