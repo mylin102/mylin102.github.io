@@ -97,5 +97,12 @@
     "taiex": NaN,
     "normalized": null,
     "ratio": null
+  },
+  {
+    "date": "2026-11-13",
+    "margin": 5334.74629,
+    "taiex": 43675.12109375,
+    "normalized": 1221.4611331125566,
+    "ratio": null
   }
 ]
